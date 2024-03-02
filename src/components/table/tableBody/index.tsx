@@ -50,7 +50,7 @@ const TableBody: FC<IPerson> = ({
         </div>
       </td>
       <td>
-        State: {location.state}, City:{location.city}
+        State: {location.state}, City: {location.city}
       </td>
       <td>{email}</td>
       <td>{phone}</td>
