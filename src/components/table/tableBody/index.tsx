@@ -1,5 +1,5 @@
 import { IPerson } from "../../../types";
-import { FC, useRef, useState } from "react";
+import { FC } from "react";
 
 const TableBody: FC<IPerson> = ({
   name,
@@ -9,44 +9,25 @@ const TableBody: FC<IPerson> = ({
   location,
   picture,
 }) => {
-  const refSetTimeout = useRef<ReturnType<typeof setTimeout>>();
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  const onMouseEnterPicture = () => {
-    refSetTimeout.current = setTimeout(() => {
-      setShowTooltip(true);
-    }, 500);
-  };
-  const onMouseLeavePicture = () => {
-    clearTimeout(refSetTimeout.current);
-    setShowTooltip(false);
-  };
-
   return (
     <tr>
       <td>
         {name.last} {name.first}
       </td>
       <td>
-        <div
-          className={"pictureContainer"}
-          onMouseEnter={onMouseEnterPicture}
-          onMouseLeave={onMouseLeavePicture}
-        >
+        <div className={"pictureContainer"}>
           <img
             className={"smallPicture"}
             src={picture.thumbnail}
             alt={"фото"}
           />
-          {showTooltip ? (
-            <div className={"tooltip"}>
-              <img
-                className={"bigPicture"}
-                src={picture.large}
-                alt={"большое фото"}
-              />
-            </div>
-          ) : null}
+          <div className={"tooltip"}>
+            <img
+              className={"bigPicture"}
+              src={picture.large}
+              alt={"большое фото"}
+            />
+          </div>
         </div>
       </td>
       <td>
@@ -54,7 +35,7 @@ const TableBody: FC<IPerson> = ({
       </td>
       <td>{email}</td>
       <td>{phone}</td>
-      <td>{new Date(Date.parse(registered.date)).toLocaleDateString()}</td>
+      <td>{new Date(registered.date).toLocaleDateString("ru")}</td>
     </tr>
   );
 };
